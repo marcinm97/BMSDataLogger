@@ -77,6 +77,29 @@ struct bms_data_packet{
 
 void fill_default_bms_message(bms_message* packet);
 
+/**
+ * As the user is able to set his own registers
+ * and determine his own number of registers to read
+ * (when we don't use, fill_default_message function)
+ * we also can verify the message correctness passing that
+ * packet by argument to valid_bms_message function.
+ * WARNING: Function doesn't check CRC.
+ * @param packet
+ * @return bool
+ */
+
+bool valid_bms_message(const bms_message& packet);
+
+/**
+ * More user-configurable function, that set up params
+ * according to two given arguments @param1 & @param2
+ * @param packet - bms_message
+ * @param1 regstr - first register number in 16b hex
+ * @param2 number - how many registers you want to get - starting with @param1 rgstr
+ */
+
+void fill_bms_message_according_rgstr(bms_message* packet, uint16_t regstr, uint8_t number);
+
 
 class TinyBMS{
     private:
